@@ -1,18 +1,21 @@
 # KOICA 현지입찰공고 대시보드 (공개 자료 기준)
 
-KOICA 전자조달 현지입찰공고(공고일·마감일·개찰일) 대시보드를 **GitHub Pages**로 공개 배포합니다.
-데이터는 대국민 공개 정보이며, **GitHub Actions가 매일 09:00(KST) 자동 수집·배포**합니다(내 PC를 켜둘 필요 없음).
-https://geowonkout.github.io/KOICA-Procurement-OvereseasOffice-BidDashboard/
+KOICA 전자조달 현지입찰공고(공고일·마감일·개찰일) 대시보드를 **Cloudflare Pages**로 공개 배포합니다.
+데이터는 대국민 공개 정보이며, **GitHub Actions가 매일 09:00(KST) KOICA를 수집해 `index.html`을 저장소에 커밋**하면 Cloudflare가 자동 재배포합니다.
+
+**공개 주소: https://koica-overseasbid.pages.dev**
 
 ## 동작 구조
 ```
 GitHub Actions (매일 09:00 KST, cron)
-   → 헤드리스 크로미엄으로 KOICA 수집 → index.html 생성
-   → GitHub Pages 로 배포
-열람자 1,000명  →  https://<계정>.github.io/<저장소>/  링크로 접속
+   → 헤드리스 크로미엄으로 KOICA 수집 → index.html 저장소 커밋 [skip ci]
+        │
+        ▼
+Cloudflare Pages (저장소 연결) → 커밋 감지 시 자동 재배포
+열람자  →  https://koica-overseasbid.pages.dev  링크로 접속
 ```
-- KOICA가 GitHub 클라우드 IP를 차단하면, 수집 단계는 실패하고 **커밋된 폴백 `index.html`(직전 데이터)** 이 배포됩니다.
-  이 경우 로컬(맥)에서 수집·배포하는 방식으로 전환합니다.
+- KOICA가 GitHub 클라우드 IP를 차단하면 수집이 실패하고, 저장소의 **직전 `index.html`(마지막 정상 데이터)** 이 그대로 유지됩니다(사이트는 계속 정상).
+  차단이 잦으면 로컬(맥)에서 수집·push하는 방식으로 전환합니다.
 
 ## 최초 1회 설정 (계정 소유자만 가능)
 > 계정 생성·인증은 보안상 본인이 직접 하셔야 합니다.
