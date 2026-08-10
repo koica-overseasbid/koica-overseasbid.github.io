@@ -72,19 +72,34 @@ async () => {
 
 def log(m): print(f"[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {m}", flush=True)
 
-def main():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+def collect_once(p):
+    browser = p.chromium.launch(headless=True)
+    try:
         ctx = browser.new_context(
             user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36",
             locale="ko-KR", ignore_https_errors=True)
         page = ctx.new_page()
-        log("KOICA 목록 페이지 접속…")
         page.goto(LIST_URL, wait_until="domcontentloaded", timeout=60000)
         page.wait_for_timeout(1500)
-        log("데이터 수집(목록+상세)…")
-        data = page.evaluate(COLLECT_JS)
+        return page.evaluate(COLLECT_JS)
+    finally:
         browser.close()
+
+def main():
+    data = None
+    with sync_playwright() as p:
+        for attempt in range(1, 4):   # KOICA가 클라우드 IP를 간헐 차단 → 최대 3회 재시도
+            log(f"KOICA 수집 시도 {attempt}/3…")
+            try:
+                data = collect_once(p)
+            except Exception as e:
+                log(f"시도 {attempt} 예외: {e}")
+                data = None
+            if data and len(data) >= 5:
+                break
+            log(f"시도 {attempt} 실패({len(data) if data else 0}건) — 재시도 대기")
+            if attempt < 3:
+                import time; time.sleep(15)
 
     if not data or len(data) < 5:
         log(f"수집 실패: {len(data) if data else 0}건. 페이지 구조 변경 또는 차단 가능성.")
