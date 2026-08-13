@@ -1,11 +1,10 @@
 name: Refresh & Deploy KOICA Bid Dashboard
 
 on:
-  # push 트리거 제거: 봇의 데이터 커밋이 워크플로를 재트리거하지 않도록(루프 방지).
-  # 소스 변경은 로컬에서 빌드·커밋하면 Cloudflare가 바로 배포함.
-  schedule:
-    - cron: '0 0 * * *'      # 매일 00:00 UTC = 09:00 KST 자동 수집·커밋
-  workflow_dispatch:          # 수동 실행 버튼
+  # 매일 자동 갱신은 맥 launchd(run_refresh.sh)가 담당한다.
+  # (KOICA가 GitHub 클라우드 IP를 차단해 여기 수집이 실패하므로 스케줄 비활성)
+  # 필요 시 아래 버튼으로 수동 시도만 가능.
+  workflow_dispatch:
 
 permissions:
   contents: write
