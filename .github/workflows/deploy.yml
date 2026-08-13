@@ -1,10 +1,10 @@
 name: Refresh & Deploy KOICA Bid Dashboard
 
 on:
-  push:
-    branches: [main]          # 소스 변경 푸시 시 즉시 재빌드·배포
+  # push 트리거 제거: 봇의 데이터 커밋이 워크플로를 재트리거하지 않도록(루프 방지).
+  # 소스 변경은 로컬에서 빌드·커밋하면 Cloudflare가 바로 배포함.
   schedule:
-    - cron: '0 0 * * *'      # 매일 00:00 UTC = 09:00 KST 자동 수집·배포
+    - cron: '0 0 * * *'      # 매일 00:00 UTC = 09:00 KST 자동 수집·커밋
   workflow_dispatch:          # 수동 실행 버튼
 
 permissions:
@@ -52,7 +52,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "변경 없음 — 커밋 생략"
           else
-            git commit -m "chore(data): 자동 데이터 갱신 [skip ci]"
+            git commit -m "chore(data): 자동 데이터 갱신"
             git push origin HEAD:main
           fi
 
