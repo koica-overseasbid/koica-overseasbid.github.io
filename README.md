@@ -3,6 +3,10 @@
 KOICA 전자조달 현지입찰공고(공고일·마감일·개찰일) 대시보드를 **Cloudflare Pages**로 공개 배포합니다.
 데이터는 대국민 공개 정보이며, **GitHub Actions가 매일 09:00(KST) KOICA를 수집해 `index.html`을 저장소에 커밋**하면 Cloudflare가 자동 재배포합니다.
 
+*깃허브에서 조직(Koica-overseasbid)으로 작업 사유
+1. 기관 업무용 개발을 위한 개인 계정명 노출 제거
+2. 지속가능성 확보(인수인계 용이 및 1인 종속 방지)
+
 **공개 주소: https://koica-overseasbid.pages.dev**
 
 ## 동작 구조
