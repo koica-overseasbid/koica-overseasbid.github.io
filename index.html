@@ -180,6 +180,8 @@ tbody tr:hover{background:var(--panel2)}
 .cal-ev.ev-dl{background:var(--amber-bg);color:var(--amber)}
 .cal-ev.ev-od{background:var(--blue-bg);color:var(--blue)}
 .cal-ev .tybox{flex:none;margin-left:auto;font-size:8.5px;font-weight:800;border:1px solid currentColor;border-radius:3px;padding:0 3px;line-height:1.35;opacity:.9}
+.cal-link{cursor:pointer;text-decoration:none}
+.cal-link:hover{text-decoration:underline;outline:1px solid currentColor;outline-offset:-1px}
 .foot{margin-top:22px;display:flex;flex-direction:column;align-items:center;gap:9px}
 .foot-logo{height:20px;width:auto;display:block}
 .foot-logo.drk{display:none}
@@ -373,7 +375,7 @@ const I18N={
     all:'All', reset:'Reset', country:'Country',
     q_ph:'Search title · project · bid no.',
     footer:'© 2026 KOICA · For authoritative details, please verify on the KOICA e-Procurement system.',
-    kpi_recv:'Bidding', kpi_soon:'Closing Soon (≤7 days)', kpi_open:'Bid Opening (≤3 days)', kpi_up:'Upcoming Bid',
+    kpi_recv:'Bidding', kpi_soon:'Closing Soon (≤7 days)', kpi_open:'Opening Soon (≤3 days)', kpi_up:'Upcoming Bid',
     col_no:'Bid No.', col_nm:'Title', col_rg:'Region', col_co:'Country', col_ty:'Type',
     col_ur:'Urgency', col_nd:'Announced', col_dl:'Deadline', col_od:'Opening', col_status:'Status', col_dday:'D-day',
     chart_status:'Status', chart_region:'By Region', chart_ty:'By Type',
@@ -389,7 +391,7 @@ const I18N={
 function t(k){return (I18N[LANG]&&I18N[LANG][k])!=null?I18N[LANG][k]:k;}
 /* 데이터값(내부키는 한글 유지) → 표시 문자열 매핑 */
 const EN_MAP={
-  status:{'접수중':'Bidding','마감임박':'Closing Soon','개찰예정':'Bid Opening','공고예정':'Upcoming Bid','개찰완료':'Bid Opened'},
+  status:{'접수중':'Bidding','마감임박':'Closing Soon','개찰예정':'Opening Soon','공고예정':'Upcoming Bid','개찰완료':'Bid Opened'},
   urgent:{'긴급':'Urgent','일반':'Normal'},
   ty:{'공사':'Works','물품':'Goods','용역':'Services'},
   region:{'동남아시아':'SE Asia','서남아태평양':'SW Asia & Pacific','아프리카':'Africa','유라시아중동':'Eurasia & M.East','중남미':'Latin America','기타/공통':'Other/Common'},
@@ -549,7 +551,7 @@ function renderTable(rows){
     const urBadge = b.urgent==null?'—':(b.urgent?`<span class="badge b-red">${dUrgent('긴급')}</span>`:`<span class="badge b-gray">${dUrgent('일반')}</span>`);
     tr.innerHTML=`
       <td class="num">${b.no}</td>
-      <td class="nm">${bidNameHTML(b)}${(LANG==='ko'&&b.pj)?`<span class="pj">${esc(b.pj)}</span>`:''}</td>
+      <td class="nm">${bidNameHTML(b,true)}${(LANG==='ko'&&b.pj)?`<span class="pj">${esc(b.pj)}</span>`:''}</td>
       <td class="num"><span class="co" style="border-style:dashed">${dRg(b.rg)}</span></td>
       <td class="num"><span class="co">${dCountry(b.co)}</span></td>
       <td class="num"><span class="ty t-${b.ty}">${dTy(b.ty)}</span></td>
@@ -659,7 +661,7 @@ function renderCalendar(rows){
       const k=yr+'-'+mo+'-'+dd;
       const isToday=(yr===today.getFullYear()&&mo===today.getMonth()&&dd===today.getDate());
       const list=(byDay[k]||[]).sort((a,b)=>a.t.localeCompare(b.t));
-      const chips=list.map(e=>{const isDl=e.t==='마감';const lett=LANG==='ko'?e.t[0]:(isDl?'D':'O');const word=isDl?t('leg_deadline'):t('leg_opening');return `<div class="cal-ev ${isDl?'ev-dl':'ev-od'}" title="${word} · ${dTy(e.b.ty)} · ${e.b.no} · ${bidName(e.b)}"><span class="ev-t">(${lett})</span><span class="ev-co">${dCountry(e.b.co)}</span><span class="tybox tb-${e.b.ty}">${tyShort(e.b.ty)}</span></div>`;}).join('');
+      const chips=list.map(e=>{const isDl=e.t==='마감';const lett=LANG==='ko'?e.t[0]:(isDl?'D':'O');const word=isDl?t('leg_deadline'):t('leg_opening');const u=bidUrl(e.b);const title=esc(`${word} · ${dTy(e.b.ty)} · ${e.b.no} · ${bidName(e.b)}`);const inner=`<span class="ev-t">(${lett})</span><span class="ev-co">${dCountry(e.b.co)}</span><span class="tybox tb-${e.b.ty}">${tyShort(e.b.ty)}</span>`;const cls=`cal-ev ${isDl?'ev-dl':'ev-od'}`;return u?`<a class="${cls} cal-link" href="${u}" target="_blank" rel="noopener" title="${title}">${inner}</a>`:`<div class="${cls}" title="${title}">${inner}</div>`;}).join('');
       html+=`<div class="cal-cell${isToday?' today':''}"><div class="cal-dnum">${dd}</div>${chips}</div>`;
     }
     html+='</div></div>';
