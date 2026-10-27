@@ -12,8 +12,8 @@
   --green:#16a34a; --green-bg:#dcfce7; --amber:#d97706; --amber-bg:#fef3c7;
   --blue:#2563eb; --blue-bg:#dbeafe; --gray:#64748b; --gray-bg:#eef1f5;
   --violet:#7c3aed; --violet-bg:#ede9fe; --red:#dc2626; --red-bg:#fee2e2;
-  --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
-  --radius:12px;
+  --shadow:0 6px 18px rgba(16,40,90,.06),0 1px 2px rgba(16,24,40,.05);
+  --radius:14px;
   --font:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Segoe UI",Roboto,sans-serif;
 }
 @media (prefers-color-scheme:dark){
@@ -56,18 +56,18 @@ h1,h2,h3{margin:0}
 .theme-btn{background:var(--panel);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 11px;cursor:pointer;font-size:12.5px}
 .theme-btn:hover{color:var(--txt)}
 /* kpi */
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.kpi{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden;cursor:pointer;transition:.12s}
-.kpi:hover{border-color:var(--faint)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
+.kpi{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:15px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden;cursor:pointer;transition:.12s}
+.kpi:hover{border-color:var(--faint);transform:translateY(-1px)}
 .kpi.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.kpi .v{font-size:26px;font-weight:800;letter-spacing:-.5px;line-height:1}
-.kpi .l{font-size:12px;color:var(--muted);margin-top:6px;font-weight:600}
-.kpi .bar{position:absolute;left:0;top:0;bottom:0;width:4px}
-.kpi.k-recv .bar{background:var(--green)} .kpi.k-recv .v{color:var(--green)}
-.kpi.k-soon .bar{background:var(--amber)} .kpi.k-soon .v{color:var(--amber)}
-.kpi.k-open .bar{background:var(--blue)} .kpi.k-open .v{color:var(--blue)}
-.kpi.k-soon2 .bar{background:var(--violet)} .kpi.k-soon2 .v{color:var(--violet)}
-.kpi.k-all .bar{background:var(--gray)}
+.kpi .khead{display:flex;align-items:center;gap:8px}
+.kpi .kdot{width:9px;height:9px;border-radius:50%;flex:none}
+.kpi .v{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1}
+.kpi .l{font-size:12.5px;color:var(--muted);margin-top:8px;font-weight:600}
+.kpi.k-recv .kdot{background:var(--green)} .kpi.k-recv .v{color:var(--green)}
+.kpi.k-soon .kdot{background:var(--amber)} .kpi.k-soon .v{color:var(--amber)}
+.kpi.k-open .kdot{background:var(--blue)} .kpi.k-open .v{color:var(--blue)}
+.kpi.k-soon2 .kdot{background:var(--violet)} .kpi.k-soon2 .v{color:var(--violet)}
 /* toolbar */
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
 .tools{padding:14px 16px;margin-bottom:14px;display:flex;flex-direction:column;gap:12px}
@@ -117,7 +117,7 @@ tbody tr:hover{background:var(--panel2)}
 .num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted)}
 .nm{max-width:420px;font-weight:600;color:var(--txt)}
 .nm .pj{display:block;font-weight:400;color:var(--faint);font-size:11px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px}
-.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge{display:inline-block;padding:4px 10px;border-radius:7px;font-size:11px;font-weight:700;white-space:nowrap}
 .b-green{background:var(--green-bg);color:var(--green)} .b-amber{background:var(--amber-bg);color:var(--amber)}
 .b-blue{background:var(--blue-bg);color:var(--blue)} .b-gray{background:var(--gray-bg);color:var(--gray)}
 .b-violet{background:var(--violet-bg);color:var(--violet)} .b-red{background:var(--red-bg);color:var(--red)}
@@ -189,13 +189,13 @@ tbody tr:hover{background:var(--panel2)}
   .glabel{width:180px;min-width:180px}
 }
 /* ===== KOICA 브랜드 + 부드러운 톤 ===== */
-:root{--brand:#0b5cab;--brand-ink:#00427f;--brand-accent:#f47920;--accent:#0b5cab;--accent-w:#dbe9f7}
+:root{--brand:#12489e;--brand-ink:#0d3a82;--brand-accent:#f47920;--accent:#12489e;--accent-w:#dbe9f7}
 @media (prefers-color-scheme:dark){:root{--accent:#5aa9ea;--accent-w:#12314f}}
-:root[data-theme="light"]{--accent:#0b5cab;--accent-w:#dbe9f7}
+:root[data-theme="light"]{--accent:#12489e;--accent-w:#dbe9f7}
 :root[data-theme="dark"]{--accent:#5aa9ea;--accent-w:#12314f}
 .hero{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  background:linear-gradient(125deg,var(--panel) 55%,var(--accent-w));
-  border:1px solid var(--border);border-radius:20px;padding:18px 24px;margin-bottom:20px;box-shadow:var(--shadow)}
+  padding:6px 2px 2px;margin-bottom:20px}
+.brandtxt h1 .wm{color:var(--brand);font-weight:900}
 .brand{display:flex;align-items:center;gap:16px}
 .koica-logo{height:26px;width:auto;display:block}
 .koica-logo.drk{display:none}
@@ -222,7 +222,7 @@ tbody tr:hover{background:var(--panel2)}
 .slegend span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
 .slegend b{color:var(--txt);font-weight:700}
 .hbars{display:flex;flex-direction:column;gap:9px}
-.hbar{display:grid;grid-template-columns:64px 1fr 28px;align-items:center;gap:8px;font-size:11.5px}
+.hbar{display:grid;grid-template-columns:78px 1fr 26px;align-items:center;gap:8px;font-size:11.5px}
 .hbar .hl{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hbar .ht{position:relative;height:9px;background:var(--border2);border-radius:5px;overflow:hidden}
 .hbar .ht i{position:absolute;left:0;top:0;height:100%;border-radius:5px;background:var(--accent)}
@@ -240,11 +240,14 @@ tbody tr:hover{background:var(--panel2)}
   <div class="hero">
     <div class="brand">
       <div class="brandtxt">
-        <h1>KOICA 해외사무소 현지입찰 대시보드</h1>
-        <div class="sub">출처: <a href="https://nebid.koica.go.kr/oep/lobi/localBidManageList.do?P_PRCURE_BSNS_SE_CD=ABID" target="_blank">KOICA전자조달시스템-현지입찰공고</a> &nbsp;·&nbsp; 개찰완료 60일 초과 공고 제외 &nbsp;·&nbsp; 기준일시 <span id="meta"></span></div>
+        <h1 id="title"></h1>
+        <div class="sub"><span data-i18n="sub_src"></span> <a href="https://nebid.koica.go.kr/oep/lobi/localBidManageList.do?P_PRCURE_BSNS_SE_CD=ABID" target="_blank" data-i18n="sub_srcName"></a> &nbsp;·&nbsp; <span data-i18n="sub_excl"></span> &nbsp;·&nbsp; <span data-i18n="sub_asof"></span> <span id="meta"></span></div>
       </div>
     </div>
-    <button class="theme-btn" id="themeBtn">◐ 테마</button>
+    <div style="display:flex;gap:9px;align-items:center">
+      <button class="theme-btn" id="langBtn">EN</button>
+      <button class="theme-btn" id="themeBtn">◐ <span data-i18n="theme"></span></button>
+    </div>
   </div>
 
   <div class="kpis" id="kpis"></div>
@@ -252,32 +255,32 @@ tbody tr:hover{background:var(--panel2)}
   <div class="panel charts" id="charts"></div>
 
   <div class="panel tools">
-    <div class="tools-title"><span class="tt-lbl">상세검색</span>
+    <div class="tools-title"><span class="tt-lbl" data-i18n="detailSearch"></span>
       <div class="viewtabs">
-        <button data-v="table" class="on">표</button>
-        <button data-v="gantt">타임라인</button>
-        <button data-v="cal">캘린더</button>
+        <button data-v="table" class="on" data-i18n="tab_table"></button>
+        <button data-v="gantt" data-i18n="tab_gantt"></button>
+        <button data-v="cal" data-i18n="tab_cal"></button>
       </div>
     </div>
     <div class="filtrow">
-      <span class="lbl">권역</span><span id="rgChips" style="display:flex;gap:8px;flex-wrap:wrap"></span>
+      <span class="lbl" data-i18n="f_region"></span><span id="rgChips" style="display:flex;gap:8px;flex-wrap:wrap"></span>
     </div>
     <div class="filtrow">
-      <span class="lbl">상태</span><span id="stChips" style="display:flex;gap:8px;flex-wrap:wrap"></span>
+      <span class="lbl" data-i18n="f_status"></span><span id="stChips" style="display:flex;gap:8px;flex-wrap:wrap"></span>
     </div>
     <div class="filtrow">
-      <span class="lbl">조달구분</span><span id="tyChips" style="display:flex;gap:8px;flex-wrap:wrap"></span>
+      <span class="lbl" data-i18n="f_ty"></span><span id="tyChips" style="display:flex;gap:8px;flex-wrap:wrap"></span>
       <span style="width:14px"></span>
-      <span class="lbl" style="min-width:auto">긴급도</span><span id="urChips" style="display:flex;gap:8px;flex-wrap:wrap"></span>
+      <span class="lbl" style="min-width:auto" data-i18n="f_urgency"></span><span id="urChips" style="display:flex;gap:8px;flex-wrap:wrap"></span>
     </div>
     <div class="filtrow">
-      <span class="lbl">필터</span>
+      <span class="lbl" data-i18n="f_filter"></span>
       <select id="coSel"></select>
-      <input type="text" id="q" placeholder="입찰명 · 사업명 · 공고번호 검색">
-      <button class="chip" id="reset">초기화</button>
+      <input type="text" id="q" data-i18n-ph="q_ph">
+      <button class="chip" id="reset" data-i18n="reset"></button>
     </div>
     <div class="filtrow" style="margin-top:-2px">
-      <span class="count"><b id="cnt">0</b>건 표시</span>
+      <span class="count" id="cntWrap"></span>
       <span class="spacer"></span>
       <span class="count" id="urgentNote"></span>
     </div>
@@ -294,27 +297,27 @@ tbody tr:hover{background:var(--panel2)}
 
   <div class="panel" id="ganttView" style="display:none">
     <div class="legend legend-top">
-      <span><i class="dotmark" style="background:var(--gray)"></i>공고일</span>
-      <span><i class="dotmark" style="background:var(--amber)"></i>마감일</span>
-      <span><i class="dotmark" style="background:var(--blue)"></i>개찰일</span>
-      <span><i class="dotmark" style="background:var(--red)"></i>오늘</span>
-      <span style="color:var(--faint)">· 막대: 공고→개찰 진행 구간</span>
+      <span><i class="dotmark" style="background:var(--gray)"></i><span data-i18n="leg_announced"></span></span>
+      <span><i class="dotmark" style="background:var(--amber)"></i><span data-i18n="leg_deadline"></span></span>
+      <span><i class="dotmark" style="background:var(--blue)"></i><span data-i18n="leg_opening"></span></span>
+      <span><i class="dotmark" style="background:var(--red)"></i><span data-i18n="today"></span></span>
+      <span style="color:var(--faint)" data-i18n="leg_ganttNote"></span>
     </div>
     <div class="gantt" id="gantt"></div>
   </div>
 
   <div class="panel" id="calView" style="display:none">
     <div class="legend legend-top">
-      <span><i class="dotmark" style="background:var(--amber)"></i>마감(마)</span>
-      <span><i class="dotmark" style="background:var(--blue)"></i>개찰(개)</span>
-      <span><i class="dotmark" style="background:var(--accent)"></i>오늘</span>
-      <span style="color:var(--faint)">· 필터 조건에 맞는 마감·개찰 일정만 표시</span>
+      <span><i class="dotmark" style="background:var(--amber)"></i><span data-i18n="leg_calDl"></span></span>
+      <span><i class="dotmark" style="background:var(--blue)"></i><span data-i18n="leg_calOd"></span></span>
+      <span><i class="dotmark" style="background:var(--accent)"></i><span data-i18n="today"></span></span>
+      <span style="color:var(--faint)" data-i18n="leg_calNote"></span>
     </div>
     <div id="cal"></div>
   </div>
 
   <div class="foot">
-    <div class="foot-cr">© 2026 KOICA 한국국제협력단 · 정확한 정보는 KOICA전자조달시스템을 확인하시기 바랍니다.</div>
+    <div class="foot-cr" data-i18n="footer"></div>
   </div>
 </div>
 
@@ -328,6 +331,72 @@ const today=(()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(
 function diffDays(a,b){return Math.round((a-b)/MS);}
 function fmt(s){return s?s.slice(2).replace(/-/g,'.'):'—';} // 26.08.24
 function fmtFull(s){return s||'—';}
+
+/* ===== i18n ===== */
+let LANG=(()=>{try{return localStorage.getItem('koica_lang')||'ko';}catch(e){return 'ko';}})();
+const I18N={
+  ko:{
+    title:'<span class="wm">KOICA</span> 해외사무소 현지입찰 대시보드',
+    sub_src:'출처:', sub_srcName:'KOICA전자조달시스템-현지입찰공고',
+    sub_excl:'개찰완료 60일 초과 공고 제외', sub_asof:'기준일시',
+    theme:'테마', detailSearch:'상세검색',
+    tab_table:'표', tab_gantt:'타임라인', tab_cal:'캘린더',
+    f_region:'권역', f_status:'상태', f_ty:'조달구분', f_urgency:'긴급도', f_filter:'필터',
+    all:'전체', reset:'초기화', country:'국가',
+    q_ph:'입찰명 · 사업명 · 공고번호 검색',
+    footer:'© 2026 KOICA 한국국제협력단 · 정확한 정보는 KOICA전자조달시스템을 확인하시기 바랍니다.',
+    kpi_recv:'접수중', kpi_soon:'마감 임박 (7일 이내)', kpi_open:'개찰 예정 (3일 이내)', kpi_up:'공고 예정',
+    col_no:'공고번호', col_nm:'입찰명', col_rg:'권역', col_co:'국가', col_ty:'조달구분',
+    col_ur:'긴급도', col_nd:'공고일', col_dl:'마감일', col_od:'개찰일', col_status:'상태', col_dday:'D-day',
+    chart_status:'상태 분포', chart_region:'권역별', chart_ty:'조달구분',
+    by_status_color:'상태별 색상', none:'해당 없음',
+    leg_announced:'공고일', leg_deadline:'마감일', leg_opening:'개찰일', today:'오늘',
+    leg_ganttNote:'· 막대: 공고→개찰 진행 구간',
+    leg_calDl:'마감(마)', leg_calOd:'개찰(개)', leg_calNote:'· 필터 조건에 맞는 마감·개찰 일정만 표시',
+    gantt_title:'공고명', empty_table:'조건에 맞는 공고가 없습니다.', empty_cal:'표시할 마감·개찰 일정이 없습니다.',
+    dd_toNd:'공고까지', dd_toDl:'마감까지', dd_toOd:'개찰까지', dd_sinceOd:'개찰경과',
+    langBtn:'EN'
+  },
+  en:{
+    title:'<span class="wm">KOICA</span> Overseas Office Local Bid Dashboard',
+    sub_src:'Source:', sub_srcName:'KOICA e-Procurement — Local Bid Notices',
+    sub_excl:'Excludes bids closed over 60 days ago', sub_asof:'As of',
+    theme:'Theme', detailSearch:'Filters',
+    tab_table:'Table', tab_gantt:'Timeline', tab_cal:'Calendar',
+    f_region:'Region', f_status:'Status', f_ty:'Type', f_urgency:'Urgency', f_filter:'Filter',
+    all:'All', reset:'Reset', country:'Country',
+    q_ph:'Search title · project · bid no.',
+    footer:'© 2026 KOICA · For authoritative details, please verify on the KOICA e-Procurement system.',
+    kpi_recv:'Open', kpi_soon:'Closing Soon (≤7 days)', kpi_open:'Opening Soon (≤3 days)', kpi_up:'Upcoming',
+    col_no:'Bid No.', col_nm:'Title', col_rg:'Region', col_co:'Country', col_ty:'Type',
+    col_ur:'Urgency', col_nd:'Announced', col_dl:'Deadline', col_od:'Opening', col_status:'Status', col_dday:'D-day',
+    chart_status:'Status', chart_region:'By Region', chart_ty:'By Type',
+    by_status_color:'colored by status', none:'None',
+    leg_announced:'Announced', leg_deadline:'Deadline', leg_opening:'Opening', today:'Today',
+    leg_ganttNote:'· bar: announce → opening span',
+    leg_calDl:'Deadline (D)', leg_calOd:'Opening (O)', leg_calNote:'· Shows only deadlines & openings matching filters',
+    gantt_title:'Bid', empty_table:'No bids match the current filters.', empty_cal:'No deadlines or openings to show.',
+    dd_toNd:'to announce', dd_toDl:'to deadline', dd_toOd:'to opening', dd_sinceOd:'since opening',
+    langBtn:'한국어'
+  }
+};
+function t(k){return (I18N[LANG]&&I18N[LANG][k])!=null?I18N[LANG][k]:k;}
+/* 데이터값(내부키는 한글 유지) → 표시 문자열 매핑 */
+const EN_MAP={
+  status:{'접수중':'Open','마감임박':'Closing Soon','개찰예정':'Opening Soon','공고예정':'Upcoming','개찰완료':'Closed'},
+  urgent:{'긴급':'Urgent','일반':'Normal'},
+  ty:{'공사':'Works','물품':'Goods','용역':'Services'},
+  region:{'동남아시아':'SE Asia','서남아태평양':'SW Asia & Pacific','아프리카':'Africa','유라시아중동':'Eurasia & M.East','중남미':'Latin America','기타/공통':'Other/Common'},
+  country:{'가나':'Ghana','과테말라':'Guatemala','기타/공통':'Other/Common','나이지리아':'Nigeria','네팔':'Nepal','도미니카':'Dominican Rep.','동티모르':'Timor-Leste','라오스':'Laos','모잠비크':'Mozambique','몽골':'Mongolia','방글라데시':'Bangladesh','베트남':'Vietnam','볼리비아':'Bolivia','세네갈':'Senegal','알제리':'Algeria','에콰도르':'Ecuador','에티오피아':'Ethiopia','엘살바도르':'El Salvador','요르단':'Jordan','우간다':'Uganda','우즈베키스탄':'Uzbekistan','우크라이나':'Ukraine','이라크':'Iraq','이집트':'Egypt','인도네시아':'Indonesia','카메룬':'Cameroon','캄보디아':'Cambodia','케냐':'Kenya','코트디부아르':"Côte d'Ivoire",'콜롬비아':'Colombia','키르기스스탄':'Kyrgyzstan','타지키스탄':'Tajikistan','탄자니아':'Tanzania','튀니지':'Tunisia','파라과이':'Paraguay','파키스탄':'Pakistan','페루':'Peru','피지':'Fiji','필리핀':'Philippines'}
+};
+function dv(kind,val){if(LANG==='ko')return val;const m=EN_MAP[kind];return (m&&m[val])||val;}
+function ddayL(k){const M={'공고까지':'dd_toNd','마감까지':'dd_toDl','개찰까지':'dd_toOd','개찰경과':'dd_sinceOd'};return k?t(M[k]||k):'';}
+function spanTxt(n){return LANG==='ko'?(n+'일'):(n+'d');}
+function tyShort(k){return LANG==='ko'?k:({'공사':'W','물품':'G','용역':'S'}[k]||k);}
+const dStatus=v=>dv('status',v), dUrgent=v=>dv('urgent',v), dTy=v=>dv('ty',v), dCountry=v=>dv('country',v);
+function dRg(v){const s=(v||'').replace('/공통','');return LANG==='ko'?s:(EN_MAP.region[v]||EN_MAP.region[s]||s);}
+const MONTHS_EN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const WD_KO=['일','월','화','수','목','금','토'], WD_EN=['Su','Mo','Tu','We','Th','Fr','Sa'];
 
 /* ===== enrich ===== */
 const DATA=(window.BIDS||[]).map(b=>{
@@ -364,19 +433,19 @@ const STS=[['all','전체',''],['접수중','접수중','green'],['마감임박'
 function chip(text,on,cls,onclick){const b=document.createElement('button');b.className='chip'+(on?' on'+(cls?' c-'+cls:''):'');b.textContent=text;b.onclick=onclick;return b;}
 function renderFilters(){
   const st=$('#stChips');st.innerHTML='';
-  STS.forEach(([v,label,cls])=>st.appendChild(chip(label,state.status===v,cls,()=>{state.status=v;state.kpi=null;apply();})));
-  const ty=$('#tyChips');ty.innerHTML='';
-  ty.appendChild(chip('전체',state.ty.size===0,null,()=>{state.ty.clear();apply();}));
-  TYS.forEach(t=>ty.appendChild(chip(t,state.ty.has(t),null,()=>{state.ty.has(t)?state.ty.delete(t):state.ty.add(t);apply();})));
+  STS.forEach(([v,label,cls])=>st.appendChild(chip(v==='all'?t('all'):dStatus(v),state.status===v,cls,()=>{state.status=v;state.kpi=null;apply();})));
+  const tyEl=$('#tyChips');tyEl.innerHTML='';
+  tyEl.appendChild(chip(t('all'),state.ty.size===0,null,()=>{state.ty.clear();apply();}));
+  TYS.forEach(ty1=>tyEl.appendChild(chip(dTy(ty1),state.ty.has(ty1),null,()=>{state.ty.has(ty1)?state.ty.delete(ty1):state.ty.add(ty1);apply();})));
   const ur=$('#urChips');ur.innerHTML='';
-  [['all','전체',''],['긴급','긴급','red'],['일반','일반','gray']].forEach(([v,label,cls])=>ur.appendChild(chip(label,state.ur===v,cls,()=>{state.ur=v;apply();})));
+  [['all',t('all'),''],['긴급',dUrgent('긴급'),'red'],['일반',dUrgent('일반'),'gray']].forEach(([v,label,cls])=>ur.appendChild(chip(label,state.ur===v,cls,()=>{state.ur=v;apply();})));
   const rgBase=DATA.filter(b=>matches(b,{rg:true,co:true}));  // 권역/국가 제외한 현재 필터 반영
   const rg=$('#rgChips');rg.innerHTML='';
-  rg.appendChild(chip('전체 '+rgBase.length,state.rg==='all',null,()=>{state.rg='all';state.co='all';apply();}));
-  RGS.forEach(r=>{const n=rgBase.filter(b=>b.rg===r).length;rg.appendChild(chip(r+' '+n,state.rg===r,null,()=>{state.rg=(state.rg===r?'all':r);state.co='all';apply();}));});
+  rg.appendChild(chip(t('all')+' '+rgBase.length,state.rg==='all',null,()=>{state.rg='all';state.co='all';apply();}));
+  RGS.forEach(r=>{const n=rgBase.filter(b=>b.rg===r).length;rg.appendChild(chip(dRg(r)+' '+n,state.rg===r,null,()=>{state.rg=(state.rg===r?'all':r);state.co='all';apply();}));});
   // country list scoped to selected region
   const coPool = state.rg==='all'?COS:[...new Set(DATA.filter(b=>b.rg===state.rg).map(b=>b.co))].sort((a,b)=>a.localeCompare(b,'ko'));
-  const co=$('#coSel');co.innerHTML='<option value="all">국가</option>'+coPool.map(c=>`<option value="${c}">${c}</option>`).join('');co.value=coPool.includes(state.co)?state.co:'all';co.onchange=()=>{state.co=co.value;apply();};
+  const co=$('#coSel');co.innerHTML=`<option value="all">${t('country')}</option>`+coPool.map(c=>`<option value="${c}">${dCountry(c)}</option>`).join('');co.value=coPool.includes(state.co)?state.co:'all';co.onchange=()=>{state.co=co.value;apply();};
 }
 
 /* ===== filtering ===== */
@@ -399,15 +468,15 @@ function renderKPIs(){
   const open=DATA.filter(b=>b.status==='개찰예정').length;
   const up=DATA.filter(b=>b.status==='공고예정').length;
   const K=[
-    ['k-recv','접수중',recv,'접수중'],
-    ['k-soon','마감 임박 (7일 이내)',soon,'마감임박'],
-    ['k-open','개찰 예정 (3일 이내)',open,'개찰예정'],
-    ['k-soon2','공고 예정',up,'공고예정'],
+    ['k-recv',t('kpi_recv'),recv,'접수중'],
+    ['k-soon',t('kpi_soon'),soon,'마감임박'],
+    ['k-open',t('kpi_open'),open,'개찰예정'],
+    ['k-soon2',t('kpi_up'),up,'공고예정'],
   ];
   const c=$('#kpis');c.innerHTML='';
   K.forEach(([cls,label,val,st])=>{
     const d=document.createElement('div');d.className='kpi '+cls+(state.status===st&&st!=='all'?' active':'');
-    d.innerHTML=`<div class="bar"></div><div class="v">${val}</div><div class="l">${label}</div>`;
+    d.innerHTML=`<div class="khead"><span class="kdot"></span><span class="v">${val}</span></div><div class="l">${label}</div>`;
     d.onclick=()=>{state.status = (state.status===st)?'all':st; apply();};
     c.appendChild(d);
   });
@@ -415,15 +484,15 @@ function renderKPIs(){
 
 /* ===== table ===== */
 const COLS=[
-  ['no','공고번호','num'],['nm','입찰명',''],['rg','권역','num'],['co','국가','num'],['ty','조달구분','num'],
-  ['ur','긴급도','num'],
-  ['nd','공고일','num'],['dl','마감일','num'],['od','개찰일','num'],
-  ['status','상태','num'],['dday','D-day','num']
+  ['no','col_no','num'],['nm','col_nm',''],['rg','col_rg','num'],['co','col_co','num'],['ty','col_ty','num'],
+  ['ur','col_ur','num'],
+  ['nd','col_nd','num'],['dl','col_dl','num'],['od','col_od','num'],
+  ['status','col_status','num'],['dday','col_dday','num']
 ];
 function renderHead(){
   const tr=$('#thead');tr.innerHTML='';
   COLS.forEach(([k,label])=>{
-    const th=document.createElement('th');th.textContent=label;
+    const th=document.createElement('th');th.textContent=t(label);
     if(!['mini','ur'].includes(k)){
       th.onclick=()=>{if(state.sort===k)state.dir*=-1;else{state.sort=k;state.dir=1;}renderHead();renderTable(filtered());};
       const s=document.createElement('span');s.className='ar';
@@ -465,30 +534,30 @@ function renderTable(rows){
     const dday = b.ddayVal==null?'—':
        (b.status==='개찰완료'?`<span class="dday" style="color:var(--muted)">D+${b.ddayVal}</span>`:
         `<span class="dday" style="color:var(--${b.scls==='amber'?'amber':b.scls==='green'?'green':b.scls==='blue'?'blue':b.scls==='violet'?'violet':'muted'})">D-${b.ddayVal}</span>`);
-    const urBadge = b.urgent==null?'—':(b.urgent?'<span class="badge b-red">긴급</span>':'<span class="badge b-gray">일반</span>');
+    const urBadge = b.urgent==null?'—':(b.urgent?`<span class="badge b-red">${dUrgent('긴급')}</span>`:`<span class="badge b-gray">${dUrgent('일반')}</span>`);
     tr.innerHTML=`
       <td class="num">${b.no}</td>
       <td class="nm">${b.nm}<span class="pj">${b.pj||''}</span></td>
-      <td class="num"><span class="co" style="border-style:dashed">${b.rg.replace('/공통','')}</span></td>
-      <td class="num"><span class="co">${b.co}</span></td>
-      <td class="num"><span class="ty t-${b.ty}">${b.ty}</span></td>
-      <td class="num">${urBadge}${b.span!=null?`<div style="font-size:10px;color:var(--faint)">${b.span}일</div>`:''}</td>
+      <td class="num"><span class="co" style="border-style:dashed">${dRg(b.rg)}</span></td>
+      <td class="num"><span class="co">${dCountry(b.co)}</span></td>
+      <td class="num"><span class="ty t-${b.ty}">${dTy(b.ty)}</span></td>
+      <td class="num">${urBadge}${b.span!=null?`<div style="font-size:10px;color:var(--faint)">${spanTxt(b.span)}</div>`:''}</td>
       <td class="num">${fmtFull(b.nd)}</td>
       <td class="num">${fmtFull(b.dl)}</td>
       <td class="num">${fmtFull(b.od)}</td>
-      <td class="num"><span class="badge b-${b.scls}">${b.status}</span></td>
-      <td class="num">${dday}<div style="font-size:10px;color:var(--faint)">${b.ddayLabel||''}</div></td>`;
+      <td class="num"><span class="badge b-${b.scls}">${dStatus(b.status)}</span></td>
+      <td class="num">${dday}<div style="font-size:10px;color:var(--faint)">${ddayL(b.ddayLabel)}</div></td>`;
     frag.appendChild(tr);
   });
   tb.appendChild(frag);
-  if(!sorted.length)tb.innerHTML='<tr><td colspan="11"><div class="empty">조건에 맞는 공고가 없습니다.</div></td></tr>';
+  if(!sorted.length)tb.innerHTML=`<tr><td colspan="11"><div class="empty">${t('empty_table')}</div></td></tr>`;
 }
 
 /* ===== gantt ===== */
 function renderGantt(rows){
   const g=$('#gantt');g.innerHTML='';
   const withDates=rows.filter(b=>b._nd&&b._od);
-  if(!withDates.length){g.innerHTML='<div class="empty">조건에 맞는 공고가 없습니다.</div>';return;}
+  if(!withDates.length){g.innerHTML=`<div class="empty">${t('empty_table')}</div>`;return;}
   const sorted=withDates.slice().sort((a,b)=>(a.nd||'').localeCompare(b.nd||''));
   let min=Math.min(...sorted.map(b=>b._nd.getTime()));
   let max=Math.max(...sorted.map(b=>b._od.getTime()));
@@ -501,20 +570,20 @@ function renderGantt(rows){
   const axis=document.createElement('div');axis.className='gaxis';
   let tickHTML=ticks.map(t=>`<div class="gtick" style="left:${pos(t.getTime())}%">${t.getFullYear().toString().slice(2)}.${String(t.getMonth()+1).padStart(2,'0')}</div>`).join('');
   const tp=pos(today.getTime());
-  tickHTML+=`<div class="gtoday" style="left:${tp}%"><span class="flag">오늘</span></div>`;
-  axis.innerHTML=`<div class="glabel">공고명 (${sorted.length}건)</div><div class="gtrack">${tickHTML}</div>`;
+  tickHTML+=`<div class="gtoday" style="left:${tp}%"><span class="flag">${t('today')}</span></div>`;
+  axis.innerHTML=`<div class="glabel">${t('gantt_title')} (${sorted.length})</div><div class="gtrack">${tickHTML}</div>`;
   g.appendChild(axis);
   const frag=document.createDocumentFragment();
   sorted.forEach(b=>{
     const row=document.createElement('div');row.className='grow';
     const l=pos(b._nd.getTime()),r=pos(b._od.getTime());
     const dl=b._dl?pos(b._dl.getTime()):null;
-    row.innerHTML=`<div class="glabel"><span class="gt">${b.nm}</span><span class="gm">${b.rg.replace('/공통','')} · ${b.co} · ${b.no} · <span style="color:var(--${b.scls==='gray'?'faint':b.scls})">${b.status}</span></span></div>
+    row.innerHTML=`<div class="glabel"><span class="gt">${b.nm}</span><span class="gm">${dRg(b.rg)} · ${dCountry(b.co)} · ${b.no} · <span style="color:var(--${b.scls==='gray'?'faint':b.scls})">${dStatus(b.status)}</span></span></div>
       <div class="gtrack">
         <div class="gbar" style="left:${l}%;width:${Math.max(r-l,0.4)}%"></div>
-        <div class="gpt p-n" style="left:${l}%" title="공고 ${b.nd}"></div>
-        ${dl!==null?`<div class="gpt p-d" style="left:${dl}%" title="마감 ${b.dl}"></div>`:''}
-        <div class="gpt p-o" style="left:${r}%" title="개찰 ${b.od}"></div>
+        <div class="gpt p-n" style="left:${l}%" title="${t('leg_announced')} ${b.nd}"></div>
+        ${dl!==null?`<div class="gpt p-d" style="left:${dl}%" title="${t('leg_deadline')} ${b.dl}"></div>`:''}
+        <div class="gpt p-o" style="left:${r}%" title="${t('leg_opening')} ${b.od}"></div>
         <div class="gtoday" style="left:${tp}%"></div>
       </div>`;
     frag.appendChild(row);
@@ -528,29 +597,30 @@ function renderCharts(rows){
   const total=rows.length||1;
   const stOrder=[['접수중','green'],['마감임박','amber'],['개찰예정','blue'],['공고예정','violet'],['개찰완료','gray']];
   const stc={}; rows.forEach(b=>stc[b.status]=(stc[b.status]||0)+1);
-  const seg=stOrder.filter(([s])=>stc[s]).map(([s,cl])=>`<i style="width:${stc[s]/total*100}%;background:var(--${cl})" title="${s} ${stc[s]}"></i>`).join('');
-  const leg=stOrder.filter(([s])=>stc[s]).map(([s,cl])=>`<span><i class="dotmark" style="background:var(--${cl})"></i>${s} <b>${stc[s]}</b></span>`).join('');
+  const seg=stOrder.filter(([s])=>stc[s]).map(([s,cl])=>`<i style="width:${stc[s]/total*100}%;background:var(--${cl})" title="${dStatus(s)} ${stc[s]}"></i>`).join('');
+  const leg=stOrder.filter(([s])=>stc[s]).map(([s,cl])=>`<span><i class="dotmark" style="background:var(--${cl})"></i>${dStatus(s)} <b>${stc[s]}</b></span>`).join('');
   // 권역별: 상태 색상 스택 막대
   const rgt={}; rows.forEach(b=>{(rgt[b.rg]=rgt[b.rg]||{})[b.status]=(rgt[b.rg][b.status]||0)+1;});
   const rgTot={}; Object.keys(rgt).forEach(r=>rgTot[r]=Object.values(rgt[r]).reduce((a,x)=>a+x,0));
   const rgMax=Math.max(1,...Object.values(rgTot));
   const rgBars=RGS.filter(r=>rgTot[r]).sort((a,b)=>rgTot[b]-rgTot[a]).map(r=>{
-    const segs=stOrder.filter(([s])=>rgt[r][s]).map(([s,cl])=>`<i style="width:${rgt[r][s]/rgMax*100}%;background:var(--${cl})" title="${r.replace('/공통','')} · ${s} ${rgt[r][s]}"></i>`).join('');
-    return `<div class="hbar"><span class="hl">${r.replace('/공통','')}</span><span class="htk">${segs}</span><span class="hv">${rgTot[r]}</span></div>`;
+    const segs=stOrder.filter(([s])=>rgt[r][s]).map(([s,cl])=>`<i style="width:${rgt[r][s]/rgMax*100}%;background:var(--${cl})" title="${dRg(r)} · ${dStatus(s)} ${rgt[r][s]}"></i>`).join('');
+    return `<div class="hbar"><span class="hl">${dRg(r)}</span><span class="htk">${segs}</span><span class="hv">${rgTot[r]}</span></div>`;
   }).join('');
   // 조달구분: 상태 색상 스택 막대 (권역별과 동일 방식)
   const tyt={}; rows.forEach(b=>{(tyt[b.ty]=tyt[b.ty]||{})[b.status]=(tyt[b.ty][b.status]||0)+1;});
-  const tyTot={}; Object.keys(tyt).forEach(t=>tyTot[t]=Object.values(tyt[t]).reduce((a,x)=>a+x,0));
+  const tyTot={}; Object.keys(tyt).forEach(k=>tyTot[k]=Object.values(tyt[k]).reduce((a,x)=>a+x,0));
   const tyMax=Math.max(1,...Object.values(tyTot));
-  const tyBars=['공사','물품','용역'].filter(t=>tyTot[t]).map(t=>{
-    const segs=stOrder.filter(([s])=>tyt[t][s]).map(([s,cl])=>`<i style="width:${tyt[t][s]/tyMax*100}%;background:var(--${cl})" title="${t} · ${s} ${tyt[t][s]}"></i>`).join('');
-    return `<div class="hbar"><span class="hl">${t}</span><span class="htk">${segs}</span><span class="hv">${tyTot[t]}</span></div>`;
+  const tyBars=['공사','물품','용역'].filter(k=>tyTot[k]).map(k=>{
+    const segs=stOrder.filter(([s])=>tyt[k][s]).map(([s,cl])=>`<i style="width:${tyt[k][s]/tyMax*100}%;background:var(--${cl})" title="${dTy(k)} · ${dStatus(s)} ${tyt[k][s]}"></i>`).join('');
+    return `<div class="hbar"><span class="hl">${dTy(k)}</span><span class="htk">${segs}</span><span class="hv">${tyTot[k]}</span></div>`;
   }).join('');
-  const none='<span style="color:var(--faint);font-size:11.5px">해당 없음</span>';
+  const none=`<span style="color:var(--faint);font-size:11.5px">${t('none')}</span>`;
+  const cntTxt=rows.length+(LANG==='ko'?'건':'');
   c.innerHTML=`
-    <div class="chartcard"><div class="ct">상태 분포 <b>${rows.length}건</b></div><div class="stack">${seg||'<i style="width:100%;background:var(--border2)"></i>'}</div><div class="slegend">${leg||none}</div></div>
-    <div class="chartcard"><div class="ct">권역별 <span style="font-size:10px;color:var(--faint);font-weight:500">상태별 색상</span></div><div class="hbars">${rgBars||none}</div></div>
-    <div class="chartcard"><div class="ct">조달구분</div><div class="hbars">${tyBars||none}</div></div>`;
+    <div class="chartcard"><div class="ct">${t('chart_status')} <b>${cntTxt}</b></div><div class="stack">${seg||'<i style="width:100%;background:var(--border2)"></i>'}</div><div class="slegend">${leg||none}</div></div>
+    <div class="chartcard"><div class="ct">${t('chart_region')} <span style="font-size:10px;color:var(--faint);font-weight:500">${t('by_status_color')}</span></div><div class="hbars">${rgBars||none}</div></div>
+    <div class="chartcard"><div class="ct">${t('chart_ty')}</div><div class="hbars">${tyBars||none}</div></div>`;
 }
 
 /* ===== 캘린더 (마감·개찰 일정) ===== */
@@ -558,25 +628,26 @@ function renderCalendar(rows){
   const el=$('#cal'); if(!el) return;
   const evs=[];
   rows.forEach(b=>{ if(b._dl) evs.push({d:b._dl,t:'마감',b}); if(b._od) evs.push({d:b._od,t:'개찰',b}); });
-  if(!evs.length){ el.innerHTML='<div class="empty">표시할 마감·개찰 일정이 없습니다.</div>'; return; }
+  if(!evs.length){ el.innerHTML=`<div class="empty">${t('empty_cal')}</div>`; return; }
   const ym=d=>d.getFullYear()*12+d.getMonth(), curM=ym(today);
   let minM=Math.min(...evs.map(e=>ym(e.d))), maxM=Math.max(...evs.map(e=>ym(e.d)));
   minM=Math.max(minM,curM-1); maxM=Math.min(maxM,curM+6); minM=Math.min(minM,curM);
   const byDay={};
   evs.forEach(e=>{const k=e.d.getFullYear()+'-'+e.d.getMonth()+'-'+e.d.getDate();(byDay[k]=byDay[k]||[]).push(e);});
-  const WD=['일','월','화','수','목','금','토'];
+  const WD=LANG==='ko'?WD_KO:WD_EN;
   let html='';
   for(let m=minM;m<=maxM;m++){
     const yr=Math.floor(m/12), mo=((m%12)+12)%12;
     const start=new Date(yr,mo,1).getDay(), days=new Date(yr,mo+1,0).getDate();
-    html+=`<div class="cal-month"><div class="cal-h">${yr}년 ${mo+1}월</div><div class="cal-grid">`;
+    const mHead=LANG==='ko'?`${yr}년 ${mo+1}월`:`${MONTHS_EN[mo]} ${yr}`;
+    html+=`<div class="cal-month"><div class="cal-h">${mHead}</div><div class="cal-grid">`;
     WD.forEach((w,i)=>html+=`<div class="cal-wd${i===0?' sun':''}">${w}</div>`);
     for(let i=0;i<start;i++) html+='<div class="cal-cell blank"></div>';
     for(let dd=1;dd<=days;dd++){
       const k=yr+'-'+mo+'-'+dd;
       const isToday=(yr===today.getFullYear()&&mo===today.getMonth()&&dd===today.getDate());
       const list=(byDay[k]||[]).sort((a,b)=>a.t.localeCompare(b.t));
-      const chips=list.map(e=>`<div class="cal-ev ${e.t==='마감'?'ev-dl':'ev-od'}" title="${e.t} · ${e.b.ty} · ${e.b.no} · ${e.b.nm}"><span class="ev-t">(${e.t[0]})</span><span class="ev-co">${e.b.co}</span><span class="tybox tb-${e.b.ty}">${e.b.ty}</span></div>`).join('');
+      const chips=list.map(e=>{const isDl=e.t==='마감';const lett=LANG==='ko'?e.t[0]:(isDl?'D':'O');const word=isDl?t('leg_deadline'):t('leg_opening');return `<div class="cal-ev ${isDl?'ev-dl':'ev-od'}" title="${word} · ${dTy(e.b.ty)} · ${e.b.no} · ${e.b.nm}"><span class="ev-t">(${lett})</span><span class="ev-co">${dCountry(e.b.co)}</span><span class="tybox tb-${e.b.ty}">${tyShort(e.b.ty)}</span></div>`;}).join('');
       html+=`<div class="cal-cell${isToday?' today':''}"><div class="cal-dnum">${dd}</div>${chips}</div>`;
     }
     html+='</div></div>';
@@ -587,9 +658,13 @@ function renderCalendar(rows){
 /* ===== apply ===== */
 function apply(){
   const rows=filtered();
-  $('#cnt').textContent=rows.length;
+  $('#cntWrap').innerHTML = LANG==='ko'
+    ? `<b>${rows.length}</b>건 표시`
+    : `<b>${rows.length}</b> shown`;
   const ug=rows.filter(b=>b.urgent===true).length, ng=rows.filter(b=>b.urgent===false).length;
-  $('#urgentNote').innerHTML=`긴급 <b style="color:var(--red)">${ug}</b> · 일반 <b>${ng}</b>`;
+  $('#urgentNote').innerHTML = LANG==='ko'
+    ? `긴급 <b style="color:var(--red)">${ug}</b> · 일반 <b>${ng}</b>`
+    : `${dUrgent('긴급')} <b style="color:var(--red)">${ug}</b> · ${dUrgent('일반')} <b>${ng}</b>`;
   renderKPIs();renderFilters();renderHead();renderCharts(rows);
   if(state.view==='table')renderTable(rows);
   else if(state.view==='gantt')renderGantt(rows);
@@ -610,11 +685,23 @@ $('#reset').onclick=()=>{Object.assign(state,{status:'all',ur:'all',rg:'all',co:
 let theme=null;
 $('#themeBtn').onclick=()=>{const cur=document.documentElement.getAttribute('data-theme');const isDark=cur?cur==='dark':matchMedia('(prefers-color-scheme:dark)').matches;document.documentElement.setAttribute('data-theme',isDark?'light':'dark');};
 
+/* ===== 언어 적용 (KO/EN) ===== */
+function applyLang(){
+  document.documentElement.lang=LANG;
+  document.title = LANG==='ko'?'KOICA 현지입찰공고 대시보드':'KOICA Local Bid Dashboard';
+  $('#title').innerHTML=t('title');
+  $$('[data-i18n]').forEach(el=>{el.textContent=t(el.getAttribute('data-i18n'));});
+  $$('[data-i18n-ph]').forEach(el=>{el.setAttribute('placeholder',t(el.getAttribute('data-i18n-ph')));});
+  $('#langBtn').textContent=t('langBtn');
+  apply();
+}
+$('#langBtn').onclick=()=>{LANG=(LANG==='ko'?'en':'ko');try{localStorage.setItem('koica_lang',LANG);}catch(e){}applyLang();};
+
 /* meta: 기준일시 = 데이터 수집 시각(KST). window.BUILT 없으면 접속일로 대체 */
 $('#meta').textContent=(window.BUILT ? window.BUILT : today.toISOString().slice(0,10))+' KST';
 
 
-apply();
+applyLang();
 </script>
 </body>
 </html>
