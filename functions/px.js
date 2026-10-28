@@ -34,8 +34,9 @@ export async function onRequest(context) {
     if (r) { try { ref = new URL(r).hostname || "direct"; } catch (e) { ref = "direct"; } }
     ref = (ref || "direct").replace(/[^a-z0-9.\-]/gi, "").slice(0, 60) || "direct";
 
+    const sess = url.searchParams.get("s") === "1" ? "n" : "p"; // n=새 방문(세션), p=추가 페이지뷰
     const rand = (crypto.randomUUID && crypto.randomUUID()) || (Date.now() + "" + Math.random());
-    const key = `h|${date}|${cc}|${device}|${browser}|${ref}|${rand}`;
+    const key = `h|${date}|${cc}|${device}|${browser}|${ref}|${sess}|${rand}`;
     await env.HITS.put(key, "1");
   } catch (e) { /* 집계 실패는 페이지에 영향 없음 */ }
   return px();
