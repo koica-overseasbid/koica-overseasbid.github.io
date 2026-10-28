@@ -12,6 +12,16 @@ export async function onRequest(context) {
   if (!env.HITS)
     return new Response(JSON.stringify({ error: "no KV binding" }), { status: 500, headers: { "content-type": "application/json" } });
 
+  if (url.searchParams.get("reset") === "1") {
+    let c, n = 0;
+    do {
+      const res = await env.HITS.list({ prefix: "h|", cursor: c, limit: 1000 });
+      for (const { name } of res.keys) { await env.HITS.delete(name); n++; }
+      c = res.list_complete ? null : res.cursor;
+    } while (c);
+    return new Response(JSON.stringify({ deleted: n }), { headers: { "content-type": "application/json" } });
+  }
+
   const month = url.searchParams.get("month"); // "YYYY-MM" 또는 없음(전체)
   const raw = url.searchParams.get("raw") === "1"; // 원시행 내보내기(xlsx용)
   const prefix = month ? `h|${month}` : "h|";
