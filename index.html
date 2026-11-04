@@ -239,6 +239,8 @@ tbody tr:hover{background:var(--panel2)}
 .hbar .hv{text-align:right;font-weight:700;color:var(--txt);font-variant-numeric:tabular-nums}
 @media(max-width:760px){.charts{grid-template-columns:1fr}.chartcard{border-right:0;border-bottom:1px solid var(--border2);padding:14px 0}.chartcard:last-child{border-bottom:0}}
 .logo-wrap{display:inline-flex;align-items:center;background:#fff;border-radius:10px;padding:6px 11px;box-shadow:0 1px 3px rgba(16,24,40,.12)}
+.titlerow{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.ver{font-size:11px;font-weight:800;color:var(--brand);background:var(--accent-w);border-radius:20px;padding:2px 9px;letter-spacing:.2px;align-self:center}
 </style>
 </head>
 <body>
@@ -246,7 +248,7 @@ tbody tr:hover{background:var(--panel2)}
   <div class="hero">
     <div class="brand">
       <div class="brandtxt">
-        <h1 id="title"></h1>
+        <div class="titlerow"><h1 id="title"></h1><span class="ver">v1.1</span></div>
         <div class="sub"><span data-i18n="sub_src"></span> <a href="https://nebid.koica.go.kr/oep/lobi/localBidManageList.do?P_PRCURE_BSNS_SE_CD=ABID" target="_blank" data-i18n="sub_srcName"></a> &nbsp;·&nbsp; <span data-i18n="sub_excl"></span> &nbsp;·&nbsp; <span data-i18n="sub_asof"></span> <span id="meta"></span></div>
       </div>
     </div>
