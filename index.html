@@ -415,8 +415,21 @@ function bidNameHTML(b,plain){const u=bidUrl(b),nm=esc(bidName(b));return u?`<a 
 const MONTHS_EN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const WD_KO=['일','월','화','수','목','금','토'], WD_EN=['Su','Mo','Tu','We','Th','Fr','Sa'];
 
+/* ===== 최종 차수만 남기기: 같은 공고번호(pn)는 최고 차수(po) 1건만 ===== */
+const LATEST=(()=>{
+  const m=new Map();
+  (window.BIDS||[]).forEach(b=>{
+    const key=b.pn||b.no;                              // 공고번호 기준(없으면 표시번호)
+    const po=parseInt(b.po,10), pn=isNaN(po)?-1:po;    // 차수(odr)
+    const cur=m.get(key);
+    if(!cur){ m.set(key,b); return; }
+    const cpo=parseInt(cur.po,10), cpn=isNaN(cpo)?-1:cpo;
+    if(pn>cpn) m.set(key,b);                            // 더 높은 차수로 교체
+  });
+  return [...m.values()];
+})();
 /* ===== enrich ===== */
-const DATA=(window.BIDS||[]).map(b=>{
+const DATA=LATEST.map(b=>{
   const nd=parseD(b.nd), dl=parseD(b.dl), od=parseD(b.od);
   const fys=[...new Set([nd,dl,od].filter(Boolean).map(d=>String(d.getFullYear())))]; // 공고/마감/개찰 중 하나라도 속한 연도
   const span = (nd&&dl)?diffDays(dl,nd):null;      // 공고~마감 일수
