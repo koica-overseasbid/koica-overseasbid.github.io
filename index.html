@@ -114,6 +114,15 @@ thead th .ar.on{color:var(--accent);font-weight:900}
 thead th .ar.mute{color:var(--faint);opacity:.45;font-size:9px}
 tbody td{border-bottom:1px solid var(--border2);padding:9px 10px;vertical-align:middle}
 tbody tr:hover{background:var(--panel2)}
+.roundbadge{display:inline-block;margin-left:5px;font-size:10px;font-weight:800;color:var(--brand);background:var(--accent-w);border:1px solid var(--border2);border-radius:20px;padding:0 7px;cursor:pointer;white-space:nowrap;user-select:none}
+.roundbadge:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+tr.hist-open{background:var(--panel2)}
+tr.histrow>td{padding:0 10px 10px!important;background:var(--panel2);border-bottom:1px solid var(--border2)}
+.histbox{border:1px solid var(--border2);border-radius:8px;padding:8px 10px;background:var(--panel)}
+.histttl{font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px}
+.histtbl{width:100%;border-collapse:collapse;font-size:11px}
+.histtbl th{text-align:left;color:var(--faint);font-weight:700;padding:3px 6px;border-bottom:1px solid var(--border2);white-space:nowrap}
+.histtbl td{padding:3px 6px;border-bottom:1px dashed var(--border2);color:var(--txt);white-space:nowrap}
 .num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted)}
 .nm{max-width:420px;font-weight:600;color:var(--txt)}
 .nm .pj{display:block;font-weight:400;color:var(--faint);font-size:11px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px}
@@ -417,16 +426,20 @@ const WD_KO=['일','월','화','수','목','금','토'], WD_EN=['Su','Mo','Tu','
 
 /* ===== 최종 차수만 남기기: 같은 공고번호(pn)는 최고 차수(po) 1건만 ===== */
 const LATEST=(()=>{
-  const m=new Map();
+  const g=new Map();
   (window.BIDS||[]).forEach(b=>{
     const key=b.pn||b.no;                              // 공고번호 기준(없으면 표시번호)
-    const po=parseInt(b.po,10), pn=isNaN(po)?-1:po;    // 차수(odr)
-    const cur=m.get(key);
-    if(!cur){ m.set(key,b); return; }
-    const cpo=parseInt(cur.po,10), cpn=isNaN(cpo)?-1:cpo;
-    if(pn>cpn) m.set(key,b);                            // 더 높은 차수로 교체
+    if(!g.has(key)) g.set(key,[]);
+    g.get(key).push(b);
   });
-  return [...m.values()];
+  const out=[];
+  g.forEach(arr=>{
+    arr.sort((x,y)=>(parseInt(y.po,10)||0)-(parseInt(x.po,10)||0)); // 차수 내림차순
+    const top=arr[0];
+    top._rounds=arr.slice(1);                          // 이전 차수 이력(최종 제외)
+    out.push(top);
+  });
+  return out;
 })();
 /* ===== enrich ===== */
 const DATA=LATEST.map(b=>{
@@ -565,8 +578,10 @@ function renderTable(rows){
        (b.status==='개찰완료'?`<span class="dday" style="color:var(--muted)">D+${b.ddayVal}</span>`:
         `<span class="dday" style="color:var(--${b.scls==='amber'?'amber':b.scls==='green'?'green':b.scls==='blue'?'blue':b.scls==='violet'?'violet':'muted'})">D-${b.ddayVal}</span>`);
     const urBadge = b.urgent==null?'—':(b.urgent?`<span class="badge b-red">${dUrgent('긴급')}</span>`:`<span class="badge b-gray">${dUrgent('일반')}</span>`);
+    const nRounds=(b._rounds&&b._rounds.length)?(parseInt(b.po,10)||(b._rounds.length+1)):0;
+    const roundBadge=nRounds?` <span class="roundbadge" title="${LANG==='ko'?'이전 차수 이력 보기':'View previous rounds'}">${LANG==='ko'?('차수 '+nRounds):('Rev.'+nRounds)}</span>`:'';
     tr.innerHTML=`
-      <td class="num">${b.no}</td>
+      <td class="num">${b.no}${roundBadge}</td>
       <td class="nm">${bidNameHTML(b,true)}${(LANG==='ko'&&b.pj)?`<span class="pj">${esc(b.pj)}</span>`:''}</td>
       <td class="num"><span class="co" style="border-style:dashed">${dRg(b.rg)}</span></td>
       <td class="num"><span class="co">${dCountry(b.co)}</span></td>
@@ -577,10 +592,31 @@ function renderTable(rows){
       <td class="num">${fmtFull(b.od)}</td>
       <td class="num"><span class="badge b-${b.scls}">${dStatus(b.status)}</span></td>
       <td class="num">${dday}<div style="font-size:10px;color:var(--faint)">${ddayL(b.ddayLabel)}</div></td>`;
+    if(nRounds){const rb=tr.querySelector('.roundbadge');if(rb)rb.onclick=()=>toggleHist(tr,b);}
     frag.appendChild(tr);
   });
   tb.appendChild(frag);
   if(!sorted.length)tb.innerHTML=`<tr><td colspan="11"><div class="empty">${t('empty_table')}</div></td></tr>`;
+}
+
+/* ===== 차수별 이력(펼치기) ===== */
+function histBox(b){
+  const L=LANG==='ko';
+  const rr=(b._rounds||[]).slice().sort((x,y)=>(parseInt(y.po,10)||0)-(parseInt(x.po,10)||0));
+  const body=rr.map(r=>{
+    const u=bidUrl(r);
+    const link=u?`<a href="${u}" target="_blank" rel="noopener" class="nml">${L?'원본':'Source'}</a>`:'—';
+    return `<tr><td>${esc(String(r.po||''))}${L?'차':''}</td><td>${esc(r.no)}</td><td>${fmtFull(r.nd)}</td><td>${fmtFull(r.dl)}</td><td>${fmtFull(r.od)}</td><td>${link}</td></tr>`;
+  }).join('');
+  return `<div class="histbox"><div class="histttl">${L?'이전 차수 이력':'Previous rounds'} · ${rr.length}${L?'건':''}</div>`
+    +`<table class="histtbl"><thead><tr><th>${L?'차수':'Rev.'}</th><th>${L?'공고번호':'Notice No.'}</th><th>${L?'공고일':'Notice'}</th><th>${L?'마감':'Deadline'}</th><th>${L?'개찰':'Opening'}</th><th>${L?'원본':'Link'}</th></tr></thead><tbody>${body}</tbody></table></div>`;
+}
+function toggleHist(tr,b){
+  const nx=tr.nextElementSibling;
+  if(nx&&nx.classList&&nx.classList.contains('histrow')){nx.remove();tr.classList.remove('hist-open');return;}
+  const hr=document.createElement('tr');hr.className='histrow';
+  hr.innerHTML=`<td colspan="11">${histBox(b)}</td>`;
+  tr.after(hr);tr.classList.add('hist-open');
 }
 
 /* ===== gantt ===== */
