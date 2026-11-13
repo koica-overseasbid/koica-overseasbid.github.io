@@ -470,6 +470,9 @@ try{const u=new URLSearchParams(location.search);const co=u.get('co');const rg=u
 const REGION_ORDER=['동남아시아','서남아태평양','아프리카','유라시아중동','중남미','기타/공통'];
 const RGS=REGION_ORDER.filter(r=>DATA.some(b=>b.rg===r));
 const COS=[...new Set(DATA.map(b=>b.co))].sort((a,b)=>a.localeCompare(b,'ko'));
+/* URL ?co= 국가가 현재 공고 목록에 없으면(진행 공고 없음) 전체로 되돌리고 안내를 남긴다 */
+let URL_CO_NOTE='';
+if(state.co!=='all'&&!COS.includes(state.co)){URL_CO_NOTE=state.co;state.co='all';}
 const TYS=['공사','물품','용역'];
 const STS=[['all','전체',''],['접수중','접수중','green'],['마감임박','마감임박','amber'],['개찰예정','개찰예정','blue'],['공고예정','공고예정','violet'],['개찰완료','개찰완료','gray']];
 
@@ -725,9 +728,10 @@ function renderCalendar(rows){
 /* ===== apply ===== */
 function apply(){
   const rows=filtered();
-  $('#cntWrap').innerHTML = LANG==='ko'
+  $('#cntWrap').innerHTML = (LANG==='ko'
     ? `<b>${rows.length}</b>건 표시`
-    : `<b>${rows.length}</b> shown`;
+    : `<b>${rows.length}</b> shown`)
+    + (URL_CO_NOTE ? (LANG==='ko' ? ` · <span style="color:var(--amber)">'${URL_CO_NOTE}' 진행 공고 없음 → 전체 표시</span>` : ` · <span style="color:var(--amber)">no current notice for '${URL_CO_NOTE}' → showing all</span>`) : '');
   const ug=rows.filter(b=>b.urgent===true).length, ng=rows.filter(b=>b.urgent===false).length;
   $('#urgentNote').innerHTML = LANG==='ko'
     ? `긴급 <b style="color:var(--red)">${ug}</b> · 일반 <b>${ng}</b>`
