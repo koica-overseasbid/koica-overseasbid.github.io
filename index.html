@@ -464,6 +464,9 @@ DATA.sort((a,b)=> (b.od||'').localeCompare(a.od||''));
 
 /* ===== state ===== */
 const state={status:'all',ty:new Set(),ur:'all',rg:'all',co:'all',q:'',view:'table',sort:'od',dir:-1,kpi:null};
+/* URL 로 필터 미리 걸기 — ?co=국가명&rg=권역&status=open|closed&q=검색어 (KOICA NEWS 사무소 카드에서 ?co= 로 연결) */
+try{const u=new URLSearchParams(location.search);const co=u.get('co');const rg=u.get('rg');const st=u.get('status');const q=u.get('q');
+  if(co)state.co=co.trim();if(rg)state.rg=rg.trim();if(st)state.status=st.trim();if(q)state.q=q.trim();}catch(e){}
 
 /* ===== filter options ===== */
 const REGION_ORDER=['동남아시아','서남아태평양','아프리카','유라시아중동','중남미','기타/공통'];
@@ -747,6 +750,7 @@ $$('.viewtabs button').forEach(btn=>btn.onclick=()=>{
   apply();
 });
 $('#q').oninput=e=>{state.q=e.target.value;apply();};
+if(state.q)$('#q').value=state.q;   // URL ?q= 로 들어온 검색어를 입력칸에도 표시
 $('#reset').onclick=()=>{Object.assign(state,{status:'all',ur:'all',rg:'all',co:'all',q:''});state.ty.clear();$('#q').value='';apply();};
 let theme=null;
 $('#themeBtn').onclick=()=>{const cur=document.documentElement.getAttribute('data-theme');const isDark=cur?cur==='dark':matchMedia('(prefers-color-scheme:dark)').matches;document.documentElement.setAttribute('data-theme',isDark?'light':'dark');};
